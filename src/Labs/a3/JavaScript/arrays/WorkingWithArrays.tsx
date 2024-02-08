@@ -17,8 +17,7 @@ export default function WorkingWithArrays() {
     functionScoped,   blockScoped,
     constant1,        numberArray1,   stringArray1
   ];
-  console.log('Working with Arrays');
-  [blockScoped, constant1, numberArray1, stringArray1, variableArray1].forEach(console.log);
+  ['Working with Arrays', blockScoped, constant1, numberArray1, stringArray1, variableArray1].forEach(console.log);
   return (
     <div>
       <h2>Working with Arrays</h2>

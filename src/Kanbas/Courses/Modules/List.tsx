@@ -8,6 +8,7 @@ import {
   setModule,
 } from "./modulesReducer";
 import { KanbasState } from "../../store";
+import './index.css';
 
 const COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 function stupidString(s: string): JSX.Element[] {
@@ -22,44 +23,56 @@ function ModuleList() {
     state.modulesReducer.module);
   const dispatch = useDispatch();
   return (
-    <ul className="list-group">
-      <li className="list-group-item">
-        <button
-          onClick={() => dispatch(addModule({ ...module, course: courseId }))}>
-          Add
-        </button>
-        <button
-          onClick={() => dispatch(updateModule(module))}>
-          Update
-        </button>
-        <input
-          value={module.name}
-          onChange={(e) =>
-            dispatch(setModule({ ...module, name: e.target.value }))
-          }/>
-        <textarea
-          value={module.description}
-          onChange={(e) =>
-            dispatch(setModule({ ...module, description: e.target.value }))
-          }/>
-      </li>
-      {moduleList
-        .filter((module) => module.course === courseId)
-        .map((module, index) => (
-          <li key={index} className="list-group-item">
-            <button
-              onClick={() => dispatch(setModule(module))}>
-              Edit
-            </button>
-            <button
-              onClick={() => dispatch(deleteModule(module._id))}>
-              Delete
-            </button>
-            <h3>{stupidString(module.name)}</h3>
-            <p>{stupidString(module.description)}</p>
-          </li>
-        ))}
-    </ul>
+    <div className="w-100 h-100">
+      <div>
+        <button>Collapse All</button>
+        <button>View Progress</button>
+        <select id="select-publish">
+          <option value="PUBLISHALL" selected>Publish All</option>
+          <option value="PUBLISHNONE">Publish None</option>
+        </select>
+        <button style={{backgroundColor: "red", color: "white"}}><i className="fa fa-plus ms-2"></i> Module</button>
+      </div>
+      <hr/>
+      <ul className="list-group wd-modules">
+        <li className="list-group-item">
+          <button
+            onClick={() => dispatch(addModule({ ...module, course: courseId }))}>
+            Add
+          </button>
+          <button
+            onClick={() => dispatch(updateModule(module))}>
+            Update
+          </button>
+          <input
+            value={module.name}
+            onChange={(e) =>
+              dispatch(setModule({ ...module, name: e.target.value }))
+            }/>
+          <textarea
+            value={module.description}
+            onChange={(e) =>
+              dispatch(setModule({ ...module, description: e.target.value }))
+            }/>
+        </li>
+        {moduleList
+          .filter((module) => module.course === courseId)
+          .map((module, index) => (
+            <li key={index} className="list-group-item">
+              <button
+                onClick={() => dispatch(setModule(module))}>
+                Edit
+              </button>
+              <button
+                onClick={() => dispatch(deleteModule(module._id))}>
+                Delete
+              </button>
+              <h3>{stupidString(module.name)}</h3>
+              <p>{stupidString(module.description)}</p>
+            </li>
+          ))}
+      </ul>
+    </div>
   );
 }
 export default ModuleList;

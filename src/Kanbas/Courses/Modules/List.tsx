@@ -8,6 +8,12 @@ import {
   setModule,
 } from "./modulesReducer";
 import { KanbasState } from "../../store";
+
+const COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+function stupidString(s: string): JSX.Element[] {
+  return s.split('').map((l, i) => <span style={{color: COLORS[i % COLORS.length]}}>{l}</span>);
+}
+
 function ModuleList() {
   const { courseId } = useParams();
   const moduleList = useSelector((state: KanbasState) => 
@@ -49,8 +55,8 @@ function ModuleList() {
               onClick={() => dispatch(deleteModule(module._id))}>
               Delete
             </button>
-            <h3>{module.name}</h3>
-            <p>{module.description}</p>
+            <h3>{stupidString(module.name)}</h3>
+            <p>{stupidString(module.description)}</p>
           </li>
         ))}
     </ul>

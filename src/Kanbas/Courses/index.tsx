@@ -4,9 +4,22 @@ import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
-function Courses({courses}: any) {
+import { useEffect, useState } from "react";
+import axios from "axios";
+function Courses() {
   const { courseId } = useParams();
-  const course = courses.find((course: any) => course._id === courseId);
+  const COURSES_API = "http://localhost:4000/api/courses";
+  const [course, setCourse] = useState<any>({ _id: "" });
+  const findCourseById = async (courseId?: string) => {
+    const response = await axios.get(
+      `${COURSES_API}/${courseId}`
+    );
+    setCourse(response.data);
+  };
+  useEffect(() => {
+    findCourseById(courseId);
+  }, [courseId]);
+
   return (
     <div>
       <h1 color="red"><HiMiniBars3 color="red"/> {course?.name}</h1>
